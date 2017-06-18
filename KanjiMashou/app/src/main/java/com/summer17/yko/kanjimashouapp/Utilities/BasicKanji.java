@@ -1,16 +1,18 @@
 package com.summer17.yko.kanjimashouapp.Utilities;
 
+import java.io.Serializable;
+
 /**
  * Created by Yko on 6/8/2017.
  */
 
-public class BasicKanji {
-    public class kanji {
+public class BasicKanji implements Serializable{
+    public class KanjiPart implements Cloneable{
 
         String character;
         int stroke;
 
-        public kanji(String aCharacter, int aStroke){
+        public KanjiPart(String aCharacter, int aStroke){
             character = aCharacter;
             stroke = aStroke;
         }
@@ -24,16 +26,25 @@ public class BasicKanji {
             return stroke;
         }
 
-
+        @Override
+        public KanjiPart clone(){
+            try{
+                KanjiPart kanjiPartClone = (KanjiPart) super.clone();
+                return kanjiPartClone;
+            }
+            catch (CloneNotSupportedException e){
+                return null;
+            }
+        }
     }
 
-    public class radical {
+    public class RadicalPart implements Cloneable{
 
         String character;
         int stroke;
         int order;
 
-        public radical(String aCharacter, int aStroke, int aOrder){
+        public RadicalPart(String aCharacter, int aStroke, int aOrder){
             character = aCharacter;
             stroke = aStroke;
             order = aOrder;
@@ -52,25 +63,36 @@ public class BasicKanji {
             return order;
         }
 
+        @Override
+        public RadicalPart clone(){
+            try{
+                RadicalPart radPartClone = (RadicalPart) super.clone();
+                return radPartClone;
+            }
+            catch (CloneNotSupportedException e){
+                return null;
+            }
+        }
+
     }
 
-    kanji kanji;
+    KanjiPart kanji;
 
-    radical radical;
+    RadicalPart radical;
 
     public BasicKanji(String kanjiCharacter, int kanjiStroke,
                       String radicalCharacter, int radicalStroke, int radicalOrder){
 
-        kanji = new kanji(kanjiCharacter, kanjiStroke);
-        radical = new radical(radicalCharacter,radicalStroke,radicalOrder);
+        kanji = new KanjiPart(kanjiCharacter, kanjiStroke);
+        radical = new RadicalPart(radicalCharacter,radicalStroke,radicalOrder);
     }
 
     //Getters
-    public kanji getKanji(){
-        return kanji;
+    public KanjiPart getKanji(){
+        return kanji.clone();
     }
 
-    public radical getRadical(){
-        return radical;
+    public RadicalPart getRadical(){
+        return radical.clone();
     }
 }

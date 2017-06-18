@@ -1,13 +1,18 @@
 package com.summer17.yko.kanjimashouapp;
 
 import com.summer17.yko.kanjimashouapp.Utilities.BasicKanji;
+import com.summer17.yko.kanjimashouapp.Utilities.JsonUtilities;
 import com.summer17.yko.kanjimashouapp.Utilities.NetworkUtilities;
 
 import static org.junit.Assert.assertTrue;
 
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.io.IOException;
 
 
 /**
@@ -36,11 +41,15 @@ public class TestKanjiAlive {
     /**
      * test : basicSearchBuildUrl & basicSearchGetHttpResponse
      */
-    @Test
-    public void testBasicSearchRequest(){
+    @Test (expected = IOException.class)
+    public void testBasicSearchRequest() throws IOException
+    {
 
         String url = NetworkUtilities.basicSearchBuildUrl(mData);
-        BasicKanji myObject  = NetworkUtilities.basicSearchGetHttpResponse(url).get(1);
+        String kanjiJsonString  = NetworkUtilities.basicSearchGetHttpResponse(url);
+
+
+        BasicKanji myObject = JsonUtilities.fromJsonToBasicKanji(kanjiJsonString).get(1);
 
         // JSONObject Output from KanjiAlive
         // isolating each property to test them

@@ -46,14 +46,11 @@ public class NetworkUtilities {
 
         stringURL = urlBuilder.build().toString();
 
-        //TODO : try-catch for malformed url ?
-
-
         return stringURL;
     }
 
-    public static ArrayList<BasicKanji> basicSearchGetHttpResponse(String aURL){
-        ArrayList<BasicKanji> kanjiArray = new ArrayList<BasicKanji>();
+    public static String basicSearchGetHttpResponse(String aURL) throws IOException{
+        String kanjiJsonString = null;
 
         //Obtain kanji list from API
         OkHttpClient client = new OkHttpClient();
@@ -62,32 +59,14 @@ public class NetworkUtilities {
                 .header(MASHAPE_KEY_PARAM, MASHAPE_KEY_VALUE)
                 .url(aURL)
                 .build();
-        try{
-            Response response = client.newCall(request).execute();
-            try{
-                JsonReader reader = new JsonReader(new InputStreamReader(response.body().byteStream() , "UTF-8"));
 
-                reader.beginArray();
+        //TODO : throw error instead of try catch
+        //          -> display "An error occurred"
 
-                while(reader.hasNext()){
-                    BasicKanji currentKanji = new Gson().fromJson(reader, BasicKanji.class);
-                    kanjiArray.add(currentKanji);
-                }
-                reader.close();
-            }
-            catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
+        Response response = client.newCall(request).execute();
+        kanjiJsonString = response.body().string();
 
-        //catch exception if there was one during the request
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        return kanjiArray;
+        return kanjiJsonString;
     }
 
 

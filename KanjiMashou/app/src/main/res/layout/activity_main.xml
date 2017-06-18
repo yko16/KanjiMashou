@@ -52,15 +52,15 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tv_urlOutput"
+        android:id="@+id/tv_noResultMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tv_url"
         android:textSize="16dp"
         android:padding="16dp"
         android:paddingTop="25sp"
         android:textAlignment="textEnd"
-        android:layout_gravity="end"/>
+        android:layout_gravity="end"
+        android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
