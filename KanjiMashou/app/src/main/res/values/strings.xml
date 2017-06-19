@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">KanjiMashou</string>
     <string name="tv_url">Url will appear here</string>
-    <string name="tv_info">Enter the English meaning, Kunyomi or Onyomi of the kanji you are searching</string>
-    <string name="et_searchHint">Enter your search here</string>
+    <string name="tv_info">Enter the English meaning, Kunyomi or Onyomi of the kanji you are looking for</string>
+    <string name="et_searchHint">Enter search</string>
     <string name="btn_title">Search</string>
     <string name="basicSearch">makeBasicSearchQuery</string>
 </resources>
