@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
+    /**
+     * Start/Restart AsyncTaskLoader to search the query
+     * @param view the Button that was clicked
+     */
     public void makeBasicSearchQuery(View view){
         String searchQuery = mSearchBoxEditText.getText().toString();
         Bundle args = new Bundle();
@@ -64,12 +68,23 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Creates new Loader
+     * @param id of the loader being created
+     * @param args the data passed to it
+     * @return AsyncTaskLoader
+     */
     @Override
     public Loader<String> onCreateLoader(int id, final Bundle args) {
+
         return new AsyncTaskLoader<String>(this) {
 
             String mKanjiList = null;
 
+            /**
+             * Loads data from KanjiAlive API in the background
+             * @return an array of Kanji as a JSONString
+             */
             @Override
             public String loadInBackground() {
 
@@ -85,7 +100,10 @@ public class MainActivity extends AppCompatActivity
 
             }
 
-            //for caching later on
+            /**
+             * Start retrieving data from the API
+             * If the data was already loaded previously, deliver the result
+             */
             @Override
             protected void onStartLoading() {
                 if (args == null) return;
@@ -108,7 +126,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    /**
+     * At the end of the load, starts a new Activity if the data was successfully retrieved
+     *   if no results, display TextView "No Result"
+     *   if connection error, display ErrorToast
+     * @param loader the loader that has finished
+     * @param data the output data from the loader
+     */
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
 
@@ -128,7 +152,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void showErrorMessage(){
+    private void showErrorMessage(){
         Toast myToast = Toast.makeText(MainActivity.this, "An error has occurred. Please check your connection and try again.", Toast.LENGTH_LONG);
         myToast.show();
     }

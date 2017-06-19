@@ -10,6 +10,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONStringer;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,6 +29,7 @@ import java.util.ListIterator;
 public class NetworkUtilities {
 
     final static String KANJIALIVE_BASE_URL = "https://kanjialive-api.p.mashape.com/api/public/search/";
+    final static String KANJIALIVE_DETAILS_URL = "https://kanjialive-api.p.mashape.com/api/public/kanji/";
 
     final static String MASHAPE_KEY_PARAM = "X-Mashape-Key";
 
@@ -60,15 +63,31 @@ public class NetworkUtilities {
                 .url(aURL)
                 .build();
 
-        //TODO : throw error instead of try catch
-        //          -> display "An error occurred"
-
         Response response = client.newCall(request).execute();
         kanjiJsonString = response.body().string();
 
         return kanjiJsonString;
     }
 
+    public static String detailQueryBuildUrl(String kanji){
+        String stringURL = null;
+        HttpUrl.Builder builder = HttpUrl.parse(KANJIALIVE_DETAILS_URL + kanji).newBuilder();
+        stringURL = builder.build().toString();
+        return stringURL;
+    }
+
+    public static String detailQueryGetHttpResponse(String aURL) throws IOException{
+        String detailsString = null;
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .header(MASHAPE_KEY_PARAM, MASHAPE_KEY_VALUE)
+                .url(aURL)
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+        detailsString = response.body().string();
+        return detailsString;
+    }
 
 
 }

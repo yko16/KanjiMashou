@@ -8,13 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.summer17.yko.kanjimashouapp.Utilities.BasicKanji;
 import com.summer17.yko.kanjimashouapp.Utilities.JsonUtilities;
 
 import java.util.ArrayList;
 
-public class SearchResultActivity extends AppCompatActivity{
+public class SearchResultActivity extends AppCompatActivity
+        implements SearchAdapter.SearchAdapterClickHandler{
 
     SearchAdapter mSearchAdapter;
 
@@ -26,7 +28,7 @@ public class SearchResultActivity extends AppCompatActivity{
         setContentView(R.layout.activity_search_result);
 
         //Get references of the different views of the activity
-        mSearchAdapter = new SearchAdapter();
+        mSearchAdapter = new SearchAdapter(this);
         mRecycerView = (RecyclerView) findViewById(R.id.rv_results);
 
 
@@ -45,5 +47,11 @@ public class SearchResultActivity extends AppCompatActivity{
         mRecycerView.setHasFixedSize(true);
         mRecycerView.setAdapter(mSearchAdapter);
 
+    }
+
+    @Override
+    public void onListItemClicked(String clickedKanji) {
+        Toast myToast = Toast.makeText(this, clickedKanji, Toast.LENGTH_LONG);
+        myToast.show();
     }
 }
