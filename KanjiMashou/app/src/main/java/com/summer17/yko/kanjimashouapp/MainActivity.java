@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity
         mSearchButton = (Button) findViewById(R.id.searchButton);
         mNoResultMessage = (TextView) findViewById(R.id.tv_noResultMessage);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        LoaderManager loaderManager = getSupportLoaderManager();
+
+        //Initialize loader
+        loaderManager.initLoader(loaderId, null, this);
     }
 
     /**

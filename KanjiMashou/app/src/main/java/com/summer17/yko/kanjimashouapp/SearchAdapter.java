@@ -116,6 +116,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.KanjiViewH
      * define what the click action triggers
      */
     public interface SearchAdapterClickHandler {
-        public void onListItemClicked(String clickedKanji);
+        void onListItemClicked(String clickedKanji);
     }
 }

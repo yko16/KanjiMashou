@@ -28,12 +28,14 @@ public class JsonUtilities {
             }
             reader.close();
         }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
         catch (IOException e){
             e.printStackTrace();
         }
         return kanjiList;
+    }
+
+    public static DetailKanji fromJsonToDetailKanji(String JsonString){
+        DetailKanji detailKanji = new Gson().fromJson(JsonString, DetailKanji.class);
+        return detailKanji;
     }
 }

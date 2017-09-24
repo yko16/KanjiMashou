@@ -10,12 +10,7 @@ public class BasicKanji implements Serializable{
     public class KanjiPart implements Cloneable{
 
         String character;
-        int stroke;
-
-        public KanjiPart(String aCharacter, int aStroke){
-            character = aCharacter;
-            stroke = aStroke;
-        }
+        private int stroke;
 
         //Getters
         public String getCharacter(){
@@ -41,14 +36,8 @@ public class BasicKanji implements Serializable{
     public class RadicalPart implements Cloneable{
 
         String character;
-        int stroke;
+        private int stroke;
         int order;
-
-        public RadicalPart(String aCharacter, int aStroke, int aOrder){
-            character = aCharacter;
-            stroke = aStroke;
-            order = aOrder;
-        }
 
         //Getters
         public String getCharacter(){
@@ -79,13 +68,6 @@ public class BasicKanji implements Serializable{
     KanjiPart kanji;
 
     RadicalPart radical;
-
-    public BasicKanji(String kanjiCharacter, int kanjiStroke,
-                      String radicalCharacter, int radicalStroke, int radicalOrder){
-
-        kanji = new KanjiPart(kanjiCharacter, kanjiStroke);
-        radical = new RadicalPart(radicalCharacter,radicalStroke,radicalOrder);
-    }
 
     //Getters
     public KanjiPart getKanji(){
